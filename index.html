@@ -79,9 +79,10 @@
   </style>
 </head>
 <body>
-  <header>
-    <img src="mar.jpeg" alt="City Homeless Resources" style="width: 90%; height: 300px;">
+  <header style="background-color: #4CAF50; padding: 10px;">
+    <img src="recmar.jpeg" alt="City Homeless Resources" style="width: 90%; height: 300px; border: 5px solid #4CAF50;">
   </header>
+
 
   <button id="sidebar-toggle" style="position: fixed; top: 10px; left: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer;">☰ Menu</button>
   
@@ -138,9 +139,18 @@
       <div id="map"></div>
     </section>
   </div>
-
+  
+    <section id="counseling" class="resource-section" style="margin-left: 20px;">
+      <h2>Counseling</h2>
+      <p>Find available counseling services for those in need:</p>
+      <ul>
+        <li><strong>Counseling Service A</strong> - 555-123-4567, 101 Therapy St.</li>
+        <li><strong>Counseling Service B</strong> - 555-987-6543, 202 Wellness Rd.</li>
+      </ul>
+    </section>
+  
   <footer>
-    <p>&copy; 2025 City Homeless Resources. All rights reserved.</p>
+    <p>&copy; 2025 Street to Home, Sylmar. Patent Pending.</p>
   
     <script>
       document.getElementById('sidebar-toggle').addEventListener('click', function() {
@@ -165,9 +175,13 @@
         .bindPopup('<b>Local Shelter 1</b><br>123 Main St');
 
       // Add marker for St Didacus Church
-      L.marker([34.32, -118.47]).addTo(map)
-        .bindPopup('<b>St Didacus</b><br>456 Oak St');
+      L.marker([34.306221, -118.445190]).addTo(map)
+        .bindPopup('<b>St Didacus</b><br>14325 Astoria St Sylmar, CA 91342');
     </script>
+</footer>
+</body>
+</html>
+
 </footer>
 </body>
 </html>
