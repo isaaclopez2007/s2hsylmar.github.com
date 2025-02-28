@@ -75,12 +75,12 @@
       bottom: 0;
       width: 100%;
     }
-    #map { height: 180px; width: 100%; }
+    #map { height: 400px; width: 70%; }
   </style>
 </head>
 <body>
   <header>
-    <img src="mar.jpeg" alt="City Homeless Resources" style="width: 100%; height: auto;">
+    <img src="mar.jpeg" alt="City Homeless Resources" style="width: 90%; height: 300px;">
   </header>
 
   <button id="sidebar-toggle" style="position: fixed; top: 10px; left: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer;">☰ Menu</button>
@@ -164,11 +164,10 @@
       L.marker([34.31, -118.49]).addTo(map)
         .bindPopup('<b>Local Shelter 1</b><br>123 Main St');
 
-      // Add marker for Community Church
+      // Add marker for St Didacus Church
       L.marker([34.32, -118.47]).addTo(map)
-        .bindPopup('<b>Community Church</b><br>456 Oak St');
+        .bindPopup('<b>St Didacus</b><br>456 Oak St');
     </script>
 </footer>
 </body>
 </html>
-
