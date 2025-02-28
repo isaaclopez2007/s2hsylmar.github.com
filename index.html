@@ -4,7 +4,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>City Homeless Resources</title>
+  <title>Sylmar Resources</title>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init('zwl-jcB3f8glTUJoG'); // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+    })();
+
+    function sendEmail(e) {
+      e.preventDefault();
+
+      emailjs.sendForm('service_tak804j', 'template_vc554ch', e.target)
+        .then(function() {
+          alert('Message sent successfully!');
+        }, function(error) {
+          alert('Failed to send message. Please try again later.');
+        });
+
+      return false;
+    }
+  </script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -49,9 +68,8 @@
 </head>
 <body>
   <header>
-    <h1>City Homeless Resources</h1>
-    <p>Connecting those in need with local resources</p>
-  </header>
+  <img src="mar.jpeg" alt="City Homeless Resources" style="width: 100%; height: auto;">
+</header>
 
   <nav>
     <a href="#resources">Resources</a>
@@ -66,28 +84,18 @@
       <p>Find local shelters, churches, counselors, and more:</p>
       <ul>
         <li><strong>Local Shelter 1</strong> - 123 Main St, (555) 123-4567</li>
-        <li><strong>Community Church</strong> - 456 Oak St, (555) 987-6543</li>
-        <li><strong>Counseling Center</strong> - 789 Pine St, (555) 246-8100</li>
-      </ul>
-    </section>
-
-    <section id="events" class="resource-section">
-      <h2>Upcoming Events & Food Drives</h2>
-      <p>Check out the latest community events and food drives:</p>
-      <ul>
-        <li>Food Drive at Central Park - March 12, 9:00 AM - 3:00 PM</li>
-        <li>Volunteer Meetup - March 18, 10:00 AM at Community Hall</li>
+        <li><strong>Community Church</strong> - 456 Oak St, (555) 987-6543<br><a href="https://www.stdidacus.org/" target="_blank">Visit Church Website</a></li>
       </ul>
     </section>
 
     <section id="contact" class="resource-section">
       <h2>Get Help</h2>
       <p>If you or someone you know needs help, reach out to us:</p>
-      <form>
+      <form onsubmit="sendEmail(event)">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+        <input type="text" id="name" name="user_name" required><br><br>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <input type="email" id="email" name="user_email" required><br><br>
         <label for="message">Message:</label><br>
         <textarea id="message" name="message" rows="5" required></textarea><br><br>
         <input type="submit" value="Submit">
