@@ -5,42 +5,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sylmar Resources</title>
-  
+ 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/> 
-  
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+ 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
-  
+ 
   <!-- EmailJS Script -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function() {
-      emailjs.init('zwl-jcB3f8glTUJoG');
-    })();
-
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function() { emailjs.init('zwl-jcB3f8glTUJoG'); })();
     function sendEmail(e) {
       e.preventDefault();
-
       emailjs.sendForm('service_tak804j', 'template_vc554ch', e.target)
-        .then(function() {
-          alert('Message sent successfully!');
-        }, function(error) {
-          alert('Failed to send message. Please try again later.');
-        });
-
+        .then(() => alert('Message sent successfully!'))
+        .catch(() => alert('Failed to send message. Please try again later.'));
       return false;
     }
   </script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-color: #f9f9f9;
     }
     header {
       background-color: #4CAF50;
@@ -48,139 +39,165 @@
       padding: 1rem;
       text-align: center;
     }
-    nav {
-      margin: 1rem;
-    }
-    nav a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: #333;
-    }
     .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 2rem;
     }
     .resource-section {
-      background-color: white;
+      background: white;
+      width: 100%;
+      max-width: 800px;
       margin-bottom: 2rem;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     footer {
-      background-color: #333;
+      background: #333;
       color: white;
       text-align: center;
       padding: 1rem;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
+      margin-top: auto;
     }
-    #map { height: 400px; width: 70%; }
+    #map { 
+      height: 400px; 
+      width: 100%; 
+      border-radius: 10px; 
+    }
+    #sidebar-toggle {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+    #sidebar {
+      position: fixed;
+      width: 200px;
+      height: 100%;
+      background: #222;
+      padding: 1rem;
+      left: -220px;
+      transition: left 0.3s;
+      color: white;
+    }
+    #sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 0.5rem 0;
+    }
   </style>
 </head>
 <body>
+  <!-- Integrated Header -->
   <header style="background-color: #4CAF50; padding: 10px;">
     <img src="letravel.jpg" alt="City Homeless Resources" style="width: 90%; height: 300px; border: 5px solid #4CAF50;">
   </header>
-
-
-  <button id="sidebar-toggle" style="position: fixed; top: 10px; left: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer;">☰ Menu</button>
-  
-  <nav id="sidebar" style="position: fixed; width: 200px; height: 100%; background-color: #333; padding: 1rem; left: -220px; transition: left 0.3s;">
-    <ul style="list-style-type: none; padding: 0;">
-      <li><a href="#resources" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Resources</a></li>
-      <li><a href="#events" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Events</a></li>
-      <li><a href="#contact" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Get Help</a></li>
-      <li><a href="#volunteer" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Volunteer</a></li>
-      <li><a href="#shelters" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Shelters</a></li>
-      <li><a href="#counseling" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Counseling</a></li>
-    </ul>
+  <button id="sidebar-toggle">☰ Menu</button>
+  <nav id="sidebar">
+    <a href="#resources">Resources</a>
+    <a href="#events">Events</a>
+    <a href="#contact">Get Help</a>
+    <a href="#volunteer">Volunteer</a>
+    <a href="#shelters">Shelters</a>
+    <a href="#counseling">Counseling</a>
   </nav>
-
   <div class="container">
+    <!-- Get Help Section -->
     <section id="contact" class="resource-section">
       <h2>Get Help</h2>
-      <p>If you or someone you know needs help, reach out to us:</p>
       <form onsubmit="sendEmail(event)">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="user_name" required><br><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="user_email" required><br><br>
-        <label for="message">Message:</label><br>
-        <textarea id="message" name="message" rows="5" required></textarea><br><br>
-        <input type="submit" value="Submit">
+        <label>Name:</label>
+        <input type="text" name="user_name" required><br>
+        <label>Email:</label>
+        <input type="email" name="user_email" required><br>
+        <label>Message:</label><br>
+        <textarea name="message" rows="4" required></textarea><br>
+        <button type="submit">Submit</button>
       </form>
     </section>
-
+    
+    <!-- Volunteer Section -->
     <section id="volunteer" class="resource-section">
       <h2>Volunteer</h2>
       <p>Want to make a difference? Sign up to volunteer:</p>
       <form>
-        <label for="volunteer-name">Name:</label>
-        <input type="text" id="volunteer-name" name="volunteer-name" required><br><br>
-        <label for="volunteer-email">Email:</label>
-        <input type="email" id="volunteer-email" name="volunteer-email" required><br><br>
-        <input type="submit" value="Sign Up">
+        <label>Name:</label>
+        <input type="text" name="volunteer_name" required><br>
+        <label>Email:</label>
+        <input type="email" name="volunteer_email" required><br>
+        <button type="submit">Sign Up</button>
       </form>
     </section>
-
+    
+    <!-- Shelters Section -->
     <section id="shelters" class="resource-section">
       <h2>Shelters</h2>
       <p>Find nearby shelters for support:</p>
       <ul>
-        <li><strong>Shelter A</strong> - 789 Elm St, (555) 765-4321</li>
-        <li><strong>Shelter B</strong> - 321 Pine St, (555) 111-2222</li>
+        <li><strong>Bridge to home</strong> - 23850 Pine Street Newhall, CA 91321</li>
+        <li><strong>Pacoima winter shelter</strong> - 11076 Norris Ave Pacoima, CA 91331, (818) 687-8744</li>
+        <li><strong>Hope of the valley</strong> - 12860 Arroyo Drive Sylmar, CA 91342</li>
+      </ul>
+      <h3>How to access a shelter near you</h3>
+      <ul>
+        <li>Call the shelter and ask about any specifications, as well as space availability.</li>
+        <li>Try to keep baggage to a minimum.</li>
+        <li>If transportation is difficult, consider using public transportation.</li>
       </ul>
     </section>
-
+    
+    <!-- Resources Section -->
     <section id="resources" class="resource-section">
       <h2>Resources</h2>
-      <p>Explore resources available in the city for those in need.</p>
       <div id="map"></div>
     </section>
-  </div>
-  
-    <section id="counseling" class="resource-section" style="margin-left: 20px;">
+    
+    <!-- Counseling Section -->
+    <section id="counseling" class="resource-section">
       <h2>Counseling</h2>
       <p>Find available counseling services for those in need:</p>
       <ul>
-        <li><strong>Counseling Service A</strong> - 555-123-4567, 101 Therapy St.</li>
-        <li><strong>Counseling Service B</strong> - 555-987-6543, 202 Wellness Rd.</li>
+        <li><strong>Hazelden Betty Ford Foundation</strong> - 1-855-404-3439</li>
+        <p>Addiction and mental health treatment. They offer in-house and virtual treatment.</p>
+        <li><strong>Nearest Homeless and Social Service Provider</strong> - 211</li>
+        <p>211 connects you with social services for the homeless, disabled, elderly, and newcomers.</p>
       </ul>
     </section>
-  
+  </div>
   <footer>
-    <p>&copy; 2025 Street to Home, Sylmar. Patent Pending.</p>
-  
-    <script>
-      document.getElementById('sidebar-toggle').addEventListener('click', function() {
-        var sidebar = document.getElementById('sidebar');
-        if (sidebar.style.left === '-220px') {
-          sidebar.style.left = '0';
-        } else {
-          sidebar.style.left = '-220px';
-        }
-      });
-
-      // Initialize Leaflet map
-      var map = L.map('map').setView([34.3, -118.5], 12); // Set initial coordinates and zoom level
-
-      // Add OpenStreetMap tiles
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map);
-
-      // Add marker for Local Shelter 1
-      L.marker([34.31, -118.49]).addTo(map)
-        .bindPopup('<b>Local Shelter 1</b><br>123 Main St');
-
-      // Add marker for St Didacus Church
-      L.marker([34.306221, -118.445190]).addTo(map)
-        .bindPopup('<b>St Didacus</b><br>14325 Astoria St Sylmar, CA 91342');
-    </script>
-</footer>
+    <p>&copy; 2025 Sylmar Resources</p>
+  </footer>
+  <script>
+    document.getElementById('sidebar-toggle').addEventListener('click', function() {
+      var sidebar = document.getElementById('sidebar');
+      sidebar.style.left = (sidebar.style.left === '-220px') ? '0' : '-220px';
+    });
+    
+    var map = L.map('map').setView([34.3, -118.5], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    L.marker([34.310841, -118.377159]).addTo(map)
+      .bindPopup('<b>Hope of the valley</b><br>12860 Arroyo Drive Sylmar, CA 91342');
+    L.marker([34.306221, -118.445190]).addTo(map)
+      .bindPopup('<b>St Didacus</b><br>14325 Astoria St Sylmar, CA 91342');
+    L.marker([34.371271, -118.522115]).addTo(map)
+      .bindPopup('<b>Bridge to Home</b><br>23850 Pine Street Newhall, CA 91321');
+    L.marker([34.271651, -118.417082]).addTo(map)
+      .bindPopup('<b>Pacoima winter shelter</b><br>11076 Norris Ave Pacoima, CA 91331');
+  </script>
 </body>
 </html>
+
+
 
 </footer>
 </body>
