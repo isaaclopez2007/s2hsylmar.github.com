@@ -5,16 +5,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sylmar Resources</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/> 
+  
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+  
+  <!-- EmailJS Script -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script type="text/javascript">
     (function() {
-      emailjs.init('zwl-jcB3f8glTUJoG'); // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+      emailjs.init('zwl-jcB3f8glTUJoG');
     })();
 
     function sendEmail(e) {
       e.preventDefault();
 
-      emailjs.sendForm('service_tak804j', 'template_gtwt258', e.target)
+      emailjs.sendForm('service_tak804j', 'template_vc554ch', e.target)
         .then(function() {
           alert('Message sent successfully!');
         }, function(error) {
@@ -24,6 +34,7 @@
       return false;
     }
   </script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -64,30 +75,28 @@
       bottom: 0;
       width: 100%;
     }
+    #map { height: 180px; width: 100%; }
   </style>
 </head>
 <body>
   <header>
-  <img src="mar.jpeg" alt="City Homeless Resources" style="width: 100%; height: 50%;">
-</header>
+    <img src="mar.jpeg" alt="City Homeless Resources" style="width: 100%; height: auto;">
+  </header>
 
-  <nav>
-    <a href="#resources">Resources</a>
-    <a href="#events">Events</a>
-    <a href="#contact">Get Help</a>
-    <a href="#volunteer">Volunteer</a>
+  <button id="sidebar-toggle" style="position: fixed; top: 10px; left: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer;">☰ Menu</button>
+  
+  <nav id="sidebar" style="position: fixed; width: 200px; height: 100%; background-color: #333; padding: 1rem; left: -220px; transition: left 0.3s;">
+    <ul style="list-style-type: none; padding: 0;">
+      <li><a href="#resources" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Resources</a></li>
+      <li><a href="#events" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Events</a></li>
+      <li><a href="#contact" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Get Help</a></li>
+      <li><a href="#volunteer" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Volunteer</a></li>
+      <li><a href="#shelters" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Shelters</a></li>
+      <li><a href="#counseling" style="color: white; text-decoration: none; display: block; padding: 0.5rem 0;">Counseling</a></li>
+    </ul>
   </nav>
 
   <div class="container">
-    <section id="resources" class="resource-section">
-      <h2>Resource Directory</h2>
-      <p>Find local shelters, churches, counselors, and more:</p>
-      <ul>
-        <li><strong>Local Shelter 1</strong> - 123 Main St, (555) 123-4567</li>
-        <li><strong>Community Church</strong> - 456 Oak St, (555) 987-6543<br><a href="https://www.stdidacus.org/" target="_blank">Visit Church Website</a></li>
-      </ul>
-    </section>
-
     <section id="contact" class="resource-section">
       <h2>Get Help</h2>
       <p>If you or someone you know needs help, reach out to us:</p>
@@ -113,10 +122,53 @@
         <input type="submit" value="Sign Up">
       </form>
     </section>
+
+    <section id="shelters" class="resource-section">
+      <h2>Shelters</h2>
+      <p>Find nearby shelters for support:</p>
+      <ul>
+        <li><strong>Shelter A</strong> - 789 Elm St, (555) 765-4321</li>
+        <li><strong>Shelter B</strong> - 321 Pine St, (555) 111-2222</li>
+      </ul>
+    </section>
+
+    <section id="resources" class="resource-section">
+      <h2>Resources</h2>
+      <p>Explore resources available in the city for those in need.</p>
+      <div id="map"></div>
+    </section>
   </div>
 
   <footer>
     <p>&copy; 2025 City Homeless Resources. All rights reserved.</p>
-  </footer>
+  
+    <script>
+      document.getElementById('sidebar-toggle').addEventListener('click', function() {
+        var sidebar = document.getElementById('sidebar');
+        if (sidebar.style.left === '-220px') {
+          sidebar.style.left = '0';
+        } else {
+          sidebar.style.left = '-220px';
+        }
+      });
+
+      // Initialize Leaflet map
+      var map = L.map('map').setView([34.3, -118.5], 12); // Set initial coordinates and zoom level
+
+      // Add OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Add marker for Local Shelter 1
+      L.marker([34.31, -118.49]).addTo(map)
+        .bindPopup('<b>Local Shelter 1</b><br>123 Main St');
+
+      // Add marker for Community Church
+      L.marker([34.32, -118.47]).addTo(map)
+        .bindPopup('<b>Community Church</b><br>456 Oak St');
+    </script>
+</footer>
 </body>
 </html>
+
