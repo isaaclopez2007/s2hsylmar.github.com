@@ -1,6 +1,3 @@
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,12 +17,23 @@
     (function() { emailjs.init('zwl-jcB3f8glTUJoG'); })();
     function sendEmail(e) {
       e.preventDefault();
-      emailjs.sendForm('service_tak804j', 'template_gtwt258', e.target)
+      emailjs.sendForm('service_tak804j', 'template_vc554ch', e.target)
         .then(() => alert('Message sent successfully!'))
         .catch(() => alert('Failed to send message. Please try again later.'));
       return false;
     }
   </script>
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <nav>
+  <a href="#resources"><i class="fas fa-box-open"></i> Resources</a>
+  <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
+  <a href="#contact"><i class="fas fa-envelope"></i> Get Help</a>
+  <a href="#volunteer"><i class="fas fa-hands-helping"></i> Volunteer</a>
+  <a href="#shelters"><i class="fas fa-home"></i> Shelters</a>
+  <a href="#counseling"><i class="fas fa-comments"></i> Counseling</a>
+</nav>
   <style>
     body {
       font-family: Arial, sans-serif;
