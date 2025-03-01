@@ -73,34 +73,42 @@
       height: 400px; 
       width: 100%; 
       border-radius: 10px; 
-    }
-    #sidebar-toggle {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-    }
-    #sidebar {
-      position: fixed;
-      width: 200px;
-      height: 100%;
-      background: #222;
-      padding: 1rem;
-      left: -220px;
-      transition: left 0.3s;
-      color: white;
-    }
-    #sidebar a {
-      color: white;
-      text-decoration: none;
-      display: block;
-      padding: 0.5rem 0;
-    }
-  </style>
+   #sidebar-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  #sidebar-toggle:hover {
+    background-color: #333;
+    transform: scale(1.05);
+  }
+  #sidebar {
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    background: #222;
+    padding: 1rem;
+    left: -220px;
+    transition: left 0.3s ease;
+    color: white;
+  }
+  #sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 0;
+    transition: background-color 0.3s ease;
+  }
+  #sidebar a:hover {
+    background-color: #4CAF50;
+  }
+</style>
 </head>
 <body>
   <!-- Integrated Header -->
